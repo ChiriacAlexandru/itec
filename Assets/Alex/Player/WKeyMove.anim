@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: forwardWalk
+  m_Name: WKeyMove
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -22,15 +22,15 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 693468488, guid: daa8fed8bd1cb1744be2e32766e21541, type: 3}
-    - time: 0.15
+    - time: 0.083333336
       value: {fileID: 375045729, guid: daa8fed8bd1cb1744be2e32766e21541, type: 3}
-    - time: 0.3
+    - time: 0.16666667
       value: {fileID: -467588107, guid: daa8fed8bd1cb1744be2e32766e21541, type: 3}
-    - time: 0.46666667
+    - time: 0.25
       value: {fileID: 933398275, guid: daa8fed8bd1cb1744be2e32766e21541, type: 3}
-    - time: 0.6166667
+    - time: 0.33333334
       value: {fileID: 1668219326, guid: daa8fed8bd1cb1744be2e32766e21541, type: 3}
-    - time: 0.76666665
+    - time: 0.41666666
       value: {fileID: 2088656697, guid: daa8fed8bd1cb1744be2e32766e21541, type: 3}
     attribute: m_Sprite
     path: 
@@ -65,7 +65,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.7833333
+    m_StopTime: 0.43333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
