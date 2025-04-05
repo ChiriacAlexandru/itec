@@ -17,9 +17,9 @@ public class CameraFollow2D : MonoBehaviour
         pointIndex++;
         if(pointIndex==5)
         {
-
+            pointIndex = 1;
         }
-        camPoints[pointIndex-1]
+
     }
 }
 
