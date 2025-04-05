@@ -16,7 +16,7 @@ public class FullCharMovement : MonoBehaviour
     [SerializeField] private float sprintSpeed = 8f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float groundCheckDistance = 0.1f;
-    [SerializeField] private LayerMask canJump;
+    [SerializeField] private float groundCheckRadius = 0.25f; // Radius pentru verificarea solului
 
     private bool jumpRequested;
     private bool isGrounded;
@@ -65,7 +65,14 @@ public class FullCharMovement : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance + 0.1f, canJump);
+        // Verificăm dacă suntem pe sol folosind un Raycast sferic
+        isGrounded = Physics.SphereCast(
+            transform.position + Vector3.up * groundCheckRadius, // Offset pentru a evita auto-detectarea
+            groundCheckRadius,
+            Vector3.down,
+            out RaycastHit hit,
+            groundCheckDistance + groundCheckRadius
+        );
 
         if (isGrounded && jumpInput.action.WasPerformedThisFrame())
         {
@@ -108,5 +115,15 @@ public class FullCharMovement : MonoBehaviour
         move.y = rb.linearVelocity.y; // preserve vertical velocity
 
         rb.linearVelocity = move;
+    }
+
+    // Vizualizare pentru debug în editor
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(
+            transform.position + Vector3.down * (groundCheckDistance - groundCheckRadius),
+            groundCheckRadius
+        );
     }
 }
