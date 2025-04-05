@@ -5,20 +5,21 @@ using UnityEngine.InputSystem;
 
 public class CameraFollow2D : MonoBehaviour
 {
-    public Vector3 GetCameraForward()
-    {
-        var forwardDir = transform.forward;
-        forwardDir.y = 0;
-        forwardDir.Normalize();
-        return forwardDir;
-    }
+    public GameObject[] camPoints;
+    private int pointIndex;
 
-    public Vector3 GetCameraRight()
+    public void Awake()
     {
-        var rightDir = transform.right;
-        rightDir.y = 0;
-        rightDir.Normalize();
-        return rightDir;
+        pointIndex = 0;
+    }
+    public void cameraMove()
+    {
+        pointIndex++;
+        if(pointIndex==5)
+        {
+
+        }
+        camPoints[pointIndex-1]
     }
 }
 
