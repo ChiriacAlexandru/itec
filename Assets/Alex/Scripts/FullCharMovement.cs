@@ -86,7 +86,7 @@ public class FullCharMovement : MonoBehaviour
     {
         if(characterController.isGrounded && jumpInput.action.triggered)
         {
-            velocity.y = (float)Math.Sqrt(jumpForce * 2f * gravity);
+            velocity.y = (float)Math.Sqrt(jumpForce * -2f * gravity);
         }
     }
 }
