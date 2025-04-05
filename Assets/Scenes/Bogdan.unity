@@ -187,7 +187,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 183
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -519,9 +519,7 @@ MonoBehaviour:
   sprintSpeed: 8
   jumpForce: 5
   groundCheckDistance: 0.1
-  canJump:
-    serializedVersion: 2
-    m_Bits: 128
+  groundCheckRadius: 0.25
   cameraScript: {fileID: 50464562}
   cameraMovement: {fileID: 50464563}
   canRight: 1
@@ -1283,9 +1281,7 @@ MonoBehaviour:
   sprintSpeed: 8
   jumpForce: 5
   groundCheckDistance: 0.1
-  canJump:
-    serializedVersion: 2
-    m_Bits: 0
+  groundCheckRadius: 0.25
   cameraScript: {fileID: 50464562}
   cameraMovement: {fileID: 50464563}
   canRight: 1
@@ -2002,7 +1998,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1044533938
 GameObject:
@@ -2069,7 +2065,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1054430184
 GameObject:
@@ -3084,7 +3080,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1641570803
 GameObject:
@@ -3459,7 +3455,7 @@ Transform:
   m_GameObject: {fileID: 1858216788}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.011, y: 0.942, z: -0.771}
+  m_LocalPosition: {x: 0.011, y: 0.942, z: -0.5}
   m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3863,7 +3859,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2004685387
 GameObject:
