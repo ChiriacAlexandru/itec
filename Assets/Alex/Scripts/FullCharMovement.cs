@@ -1,8 +1,9 @@
-using System;
-using Unity.Mathematics;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class FullCharMovement : MonoBehaviour
 {
     [Header("Sistem de input")]
@@ -10,24 +11,23 @@ public class FullCharMovement : MonoBehaviour
     [SerializeField] private InputActionReference jumpInput;
     [SerializeField] private InputActionReference sprintInput;
 
-
-    [Header("Variabile de miscare")]
+    [Header("Variabile de mișcare")]
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
     [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float gravity = -15f;
+    [SerializeField] private float groundCheckDistance = 0.1f;
+    [SerializeField] private LayerMask canJump;
 
-
-
-
-    [Header("Componente Joc")]
-    [SerializeField] private CharacterController characterController;
-    private Vector3 velocity;
+    private bool jumpRequested;
+    private bool isGrounded;
     private bool isSprinting;
     private float currentSpeed;
+
+    [Header("Componente joc")]
+    private Rigidbody rb;
     [SerializeField] private CameraScript cameraScript;
     [SerializeField] private CameraFollow2D cameraMovement;
-    [SerializeField] private Animator animator;
+
     public bool canRight;
     public bool canForward;
     public bool can2D;
@@ -35,24 +35,14 @@ public class FullCharMovement : MonoBehaviour
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+
         canRotate2D = false;
     }
-    private void FixedUpdate()
-    {
-        
-        playerGravityFunction();
-        playerMoveFunction();
-        playerJumpFunction();
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && canRotate2D)
-        {
-            cameraMovement.cameraMove();
-        }
-    }
-    //aici citim inputurile / nu stergeti nimic de aici!!!!!!
     private void OnEnable()
     {
         moveInput.action.Enable();
@@ -68,55 +58,55 @@ public class FullCharMovement : MonoBehaviour
         moveInput.action.Disable();
         jumpInput.action.Disable();
         sprintInput.action.Disable();
+
+        sprintInput.action.performed -= _ => isSprinting = true;
+        sprintInput.action.canceled -= _ => isSprinting = false;
     }
 
-    // functie pentru a activa gravitatie unui character controller
-    private void playerGravityFunction()
+    private void Update()
     {
-        if (characterController.isGrounded && velocity.y < 0)
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance + 0.1f, canJump);
+
+        if (isGrounded && jumpInput.action.WasPerformedThisFrame())
         {
-            velocity.y = -2f;
+            jumpRequested = true;
         }
-        velocity.y += gravity * Time.fixedDeltaTime;
-        characterController.Move(velocity * Time.fixedDeltaTime);
+
+        if (Input.GetKeyDown(KeyCode.F) && canRotate2D)
+        {
+            cameraMovement.cameraMove();
+        }
     }
-    // functie de movement la jucator, se poate modifica conform dorintelor ulterioare
-    private void playerMoveFunction()
+
+    private void FixedUpdate()
     {
-        Vector2 inputDirection = moveInput.action.ReadValue<Vector2>();
+        HandleMovement();
 
-        if(canForward == false)
+        if (jumpRequested)
         {
-            inputDirection.y = 0;
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // reset Y
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            jumpRequested = false;
         }
+    }
 
-        if(canRight == false)
-        {
-            inputDirection.x = 0;
-        }
+    private void HandleMovement()
+    {
+        Vector2 input = moveInput.action.ReadValue<Vector2>();
 
-        if(can2D == false)
-        {
-            if (inputDirection.x < 0)
-                inputDirection.x = 0;
-        }
-        Vector3 moveDirection = (cameraScript.GetCameraForward() * inputDirection.y + cameraScript.GetCameraRight() * inputDirection.x).normalized;
+        if (!canForward)
+            input.y = 0;
+        if (!canRight)
+            input.x = 0;
+        if (!can2D && input.x < 0)
+            input.x = 0;
 
+        Vector3 direction = (cameraScript.GetCameraForward() * input.y + cameraScript.GetCameraRight() * input.x).normalized;
         currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
-        characterController.Move(moveDirection * currentSpeed * Time.fixedDeltaTime);
-    }
 
-    private void playerJumpFunction()
-    {
-        if (characterController.isGrounded && jumpInput.action.triggered)
-        {
-            velocity.y = (float)Math.Sqrt(jumpForce * -2f * gravity);
-        }
-    }
+        Vector3 move = direction * currentSpeed;
+        move.y = rb.linearVelocity.y; // preserve vertical velocity
 
-
-    private void animationController()
-    {
-        
+        rb.linearVelocity = move;
     }
 }
