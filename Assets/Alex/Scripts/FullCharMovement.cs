@@ -29,6 +29,7 @@ public class FullCharMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     public bool canRight;
     public bool canForward;
+    public bool can2D;
 
 
     private void Awake()
@@ -88,6 +89,12 @@ public class FullCharMovement : MonoBehaviour
         if(canRight == false)
         {
             inputDirection.x = 0;
+        }
+
+        if(can2D == false)
+        {
+            if (inputDirection.x < 0)
+                inputDirection.x = 0;
         }
         Vector3 moveDirection = (cameraScript.GetCameraForward() * inputDirection.y + cameraScript.GetCameraRight() * inputDirection.x).normalized;
 
