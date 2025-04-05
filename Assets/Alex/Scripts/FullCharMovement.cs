@@ -31,17 +31,12 @@ public class FullCharMovement : MonoBehaviour
     public bool canRight;
     public bool canForward;
     public bool can2D;
-
+    public bool canRotate2D;
 
     private void Awake()
     {
+        canRotate2D = false;
     }
-
-
-
-
-
-
     private void FixedUpdate()
     {
         
@@ -52,7 +47,7 @@ public class FullCharMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && canRotate2D)
         {
             cameraMovement.cameraMove();
         }
