@@ -25,7 +25,8 @@ public class FullCharMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isSprinting;
     private float currentSpeed;
-
+    [SerializeField] private CameraScript cameraScript;
+    [SerializeField] private Animator animator;
 
 
     private void Awake()
@@ -65,7 +66,7 @@ public class FullCharMovement : MonoBehaviour
     // functie pentru a activa gravitatie unui character controller
     private void playerGravityFunction()
     {
-        if(characterController.isGrounded && velocity.y < 0)
+        if (characterController.isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
@@ -76,17 +77,24 @@ public class FullCharMovement : MonoBehaviour
     private void playerMoveFunction()
     {
         Vector2 inputDirection = moveInput.action.ReadValue<Vector2>();
-        Vector3 moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y).normalized;
+
+        Vector3 moveDirection = (cameraScript.GetCameraForward() * inputDirection.y + cameraScript.GetCameraRight() * inputDirection.x).normalized;
+
         currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
-        moveDirection = transform.TransformDirection(moveDirection);
         characterController.Move(moveDirection * currentSpeed * Time.fixedDeltaTime);
     }
 
     private void playerJumpFunction()
     {
-        if(characterController.isGrounded && jumpInput.action.triggered)
+        if (characterController.isGrounded && jumpInput.action.triggered)
         {
             velocity.y = (float)Math.Sqrt(jumpForce * -2f * gravity);
         }
+    }
+
+
+    private void animationController()
+    {
+        
     }
 }

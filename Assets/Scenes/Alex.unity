@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 345567101}
   - component: {fileID: 345567100}
   - component: {fileID: 345567099}
+  - component: {fileID: 345567103}
   m_Layer: 0
   m_Name: Camera (1)
   m_TagString: Untagged
@@ -370,13 +371,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345567098}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4092065, y: 0, z: 0, w: 0.9124418}
-  m_LocalPosition: {x: -2.6136568, y: 13.1, z: -12.23}
+  m_LocalRotation: {x: 0.28116915, y: 0, z: 0, w: 0.95965827}
+  m_LocalPosition: {x: 0, y: 23.2, z: -39.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 48.31, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 32.66, y: 0, z: 0}
+--- !u!114 &345567103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345567098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dde5ac4c0fb6ba418b19642f147791b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &356627833
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +469,8 @@ MonoBehaviour:
   jumpForce: 5
   gravity: -15
   characterController: {fileID: 356627835}
+  cameraScript: {fileID: 345567103}
+  animator: {fileID: 0}
 --- !u!1 &726212000
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +535,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 68761b0ada74fc7478e6b2b310f41e5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
