@@ -26,28 +26,32 @@ public class FullCharMovement : MonoBehaviour
     private bool isSprinting;
     private float currentSpeed;
     [SerializeField] private CameraScript cameraScript;
+    [SerializeField] private CameraFollow2D cameraMovement;
     [SerializeField] private Animator animator;
     public bool canRight;
     public bool canForward;
     public bool can2D;
-
+    public bool canRotate2D;
 
     private void Awake()
     {
+        canRotate2D = false;
     }
-
-
-
-
-
-
     private void FixedUpdate()
     {
+        
         playerGravityFunction();
         playerMoveFunction();
         playerJumpFunction();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && canRotate2D)
+        {
+            cameraMovement.cameraMove();
+        }
+    }
     //aici citim inputurile / nu stergeti nimic de aici!!!!!!
     private void OnEnable()
     {
