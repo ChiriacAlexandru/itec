@@ -712,8 +712,9 @@ MonoBehaviour:
   characterController: {fileID: 660612265}
   cameraScript: {fileID: 50464562}
   animator: {fileID: 0}
-  canRight: 0
-  canForward: 1
+  canRight: 1
+  canForward: 0
+  can2D: 1
 --- !u!4 &660612264
 Transform:
   m_ObjectHideFlags: 0
