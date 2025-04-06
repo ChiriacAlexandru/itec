@@ -14,13 +14,15 @@ public class ToggleMovementTrigger : MonoBehaviour
     public GameObject cameraCinemachine;
     public GameObject blackbckg;
 
+    [Header("Objects to Activate")]
+    public List<GameObject> objectsToActivate = new List<GameObject>();
 
-    [Header("Prefabs to Activate")]
-    public List<GameObject> prefabsToActivate = new List<GameObject>();
+    [Header("Objects to Deactivate")]
+    public List<GameObject> objectsToDeactivate = new List<GameObject>();
 
     private void OnTriggerEnter(Collider other)
     {
-        /*if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player")) return;
 
         if (playerMovement != null)
         {
@@ -29,24 +31,29 @@ public class ToggleMovementTrigger : MonoBehaviour
             playerMovement.can2D = newCan2DState;
         }
 
-        foreach (GameObject prefab in prefabsToActivate)
+        foreach (GameObject wall in walls)
         {
-            if (prefab != null)
-            {
-                prefab.SetActive(true);
-            }
-        }*/
+            wall.SetActive(false);
+        }
+        camera2D.SetActive(false);
+        camera3D.SetActive(true);
+        cameraCinemachine.SetActive(true);
+        blackbckg.SetActive(false);
 
-        if (other.tag == "Player")
+        foreach (GameObject obj in objectsToActivate)
         {
-            playerMovement.canForward = true;
-            foreach (GameObject wall in walls){
-                wall.active = false;
+            if (obj != null)
+            {
+                obj.SetActive(true);
             }
-            camera2D.active = false;
-            camera3D.active = true;
-            cameraCinemachine.active = true;
-            blackbckg.active = false;
+        }
+
+        foreach (GameObject obj in objectsToDeactivate)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
         }
     }
 }

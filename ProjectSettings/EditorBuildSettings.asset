@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Alex/Scenes/MenuScene.unity
+    guid: 97a1e6e91b6fb824fb69c840ebe00ada
+  - enabled: 1
+    path: Assets/Alex/Bogdan.unity
+    guid: 8cca47da5e6528441a51db46bf7d60ac
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
